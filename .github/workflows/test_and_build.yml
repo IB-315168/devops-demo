@@ -25,4 +25,4 @@ jobs:
 
       #Run Tests
       - name: Run Tests
-        run: mvn -B tests
+        run: mvn -B test
