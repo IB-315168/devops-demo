@@ -22,6 +22,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          #cache: 'maven'
+
+      #Cache Maven packages
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
       #Run Tests
       - name: Run Tests
@@ -42,8 +51,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
       # Build the application using Maven
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
       - run: mkdir staging && cp target/*.jar staging
+
+      - name: Upload a JAR artifact
+        uses: action/upload-artifact@v3
+        with:
+          #Set artifact name
+          name: RunnableJar
+          #From this path
+          path: staging
