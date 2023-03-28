@@ -59,7 +59,7 @@ jobs:
       - run: mkdir staging && cp target/*.jar staging
 
       - name: Upload a JAR artifact
-        uses: action/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           #Set artifact name
           name: RunnableJar
